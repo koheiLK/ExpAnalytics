@@ -14,21 +14,23 @@ def load(genomic_matrix,clinical_data):
     cdata = _cdata['sample_type']
     return gdata, cdata
 
-gdata, cdata = load("genomicMatrix","clinical_data")
+def aligndata(gdata,genename):
+    picked_gdata = gdata[genename]
+    eval_df = pd.concat([cdata, picked_gdata], axis=1, join='inner')
+    return eval_df
 
-genelist = list(gdata.T.index)
-
-print('Please enter your gene of interest.')
-genename = input('>>')
-if not genename in genelist:
-	print('your GOI is not found')
-	exit()
-picked_gdata = gdata[genename]
-eval_df = pd.concat([cdata, picked_gdata], axis=1, join='inner')
-
-fig = plt.figure()
-ax = fig.add_subplot(111)
-bp = eval_df.boxplot(column=genename, by='sample_type')
-plt.show()
-
-
+if __name__ == '__main__': 
+    gdata, cdata = load("genomicMatrix","clinical_data")
+    genelist = list(gdata.T.index)
+    
+    print('Please enter your gene of interest.')
+    genename = input('>>')
+    
+    if not genename in genelist:
+        print('your GOI is not found')
+        exit()
+    
+    eval_df = aligndata(gdata, genename)
+    
+    bp = eval_df.boxplot(column=genename, by='sample_type')
+    plt.show()
