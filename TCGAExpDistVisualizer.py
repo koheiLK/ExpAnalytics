@@ -1,10 +1,7 @@
 #-*- coding: utf-8 -*-
-#TCGAのデータを読み込み,希望するある１つの遺伝子についての発現を正常と癌で二群に分けてboxplotで表示するプログラム
-
-print('Please wait...')
+#Making boxplot that describes the expression of your gene-of-interest in primary tumor and normal tissue from TCGA datasets.
 
 import pandas as pd
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 def load(genomic_matrix,clinical_data):
@@ -20,6 +17,7 @@ def aligndata(gdata,genename):
     return eval_df
 
 if __name__ == '__main__': 
+    print("Please wait...")
     gdata, cdata = load("genomicMatrix","clinical_data")
     genelist = list(gdata.T.index)
     
