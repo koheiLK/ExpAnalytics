@@ -1,2 +1,4 @@
 clinical_data
 genomicMatrix
+__pycache__/
+__pycache__/*.pyc

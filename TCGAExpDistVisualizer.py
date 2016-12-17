@@ -11,7 +11,7 @@ def load(genomic_matrix,clinical_data):
     cdata = _cdata['sample_type']
     return gdata, cdata
 
-def aligndata(gdata,genename):
+def aligndata(gdata,cdata,genename):
     picked_gdata = gdata[genename]
     eval_df = pd.concat([cdata, picked_gdata], axis=1, join='inner')
     return eval_df
@@ -28,7 +28,7 @@ if __name__ == '__main__':
         print('your GOI is not found')
         exit()
     
-    eval_df = aligndata(gdata, genename)
+    eval_df = aligndata(gdata, cdata, genename)
     
     bp = eval_df.boxplot(column=genename, by='sample_type')
     plt.show()
